@@ -26,8 +26,8 @@ jobs:
     - name: Invalidate CloudFront Cache
       uses: chetan/invalidate-cloudfront-action@v2
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AKIA5JMSUP5TRIGXS4US }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.E4gO7jF5A3A2L+3tRaSe210psbneLH7W5XquIy6A }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
       with:
         distribution-id: "E1B8NSS0G4ZR9R"  # Replace with your CloudFront ID
         paths: "/*"  # Invalidate everything
