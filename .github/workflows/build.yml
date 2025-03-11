@@ -1,0 +1,33 @@
+name: Deploy to S3 and Invalidate CloudFront
+
+on:
+  push:
+    branches:
+      - main  # Runs on push to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3  # Get the latest code from GitHub
+
+    - name: Upload Build to S3
+      uses: aws-actions/s3-sync@v1
+      with:
+        bucket: "s3-prac-deploy"  # Replace with your actual bucket name
+        region: "eu-north-1"  # Example: us-east-1
+        delete: true
+        no-progress: true
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+
+    - name: Invalidate CloudFront Cache
+      uses: chetan/invalidate-cloudfront-action@v2
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+      with:
+        distribution-id: "E1B8NSS0G4ZR9R"  # Replace with your CloudFront ID
+        paths: "/*"  # Invalidate everything
