@@ -24,10 +24,7 @@ jobs:
       run: aws s3 sync ./ s3://s3-prac-deploy --delete
 
     - name: Invalidate CloudFront Cache
-      uses: chetan/invalidate-cloudfront-action@v2
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
-      with:
-        distribution-id: "E1B8NSS0G4ZR9R"  # Replace with your CloudFront ID
-        paths: "/*"  # Invalidate everything
+      run: |
+        aws cloudfront create-invalidation \
+          --distribution-id E1B8NSS0G4ZR9R \
+          --paths "/*"
