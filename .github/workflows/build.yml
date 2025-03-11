@@ -13,15 +13,15 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3  # Get the latest code from GitHub
 
-    - name: Upload Build to S3
-      uses: aws-actions/s3-sync@v1
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-        bucket: "s3-prac-deploy"  # Replace with your actual bucket name
-        region: "eu-north-1"  # Example: us-east-1
-        delete: true
-        no-progress: true
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: "eu-north-1"  # Replace with your AWS region
+
+    - name: Upload Build to S3
+      run: aws s3 sync ./ s3://s3-prac-deploy --delete
 
     - name: Invalidate CloudFront Cache
       uses: chetan/invalidate-cloudfront-action@v2
