@@ -20,8 +20,8 @@ jobs:
         region: "eu-north-1"  # Example: us-east-1
         delete: true
         no-progress: true
-        aws-access-key-id: ${{ secrets.AKIA5JMSUP5TRIGXS4US }}
-        aws-secret-access-key: ${{ secrets.E4gO7jF5A3A2L+3tRaSe210psbneLH7W5XquIy6A }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
 
     - name: Invalidate CloudFront Cache
       uses: chetan/invalidate-cloudfront-action@v2
