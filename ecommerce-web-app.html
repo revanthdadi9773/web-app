@@ -582,7 +582,7 @@
     loadProducts();
     async function fetchData() {
     try {
-        let response = await fetch('http://Test-1049527711.eu-north-1.elb.amazonaws.com');
+        let response = await fetch('http://API-LoadBalancer-1341803746.eu-north-1.elb.amazonaws.com');
         let data = await response.text();
         document.getElementById("apiResponse").innerText = data;
     } catch (error) {
